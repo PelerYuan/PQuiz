@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线答题网站</title>
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- 主标题 -->
+        <h1 class="text-center">在线答题</h1>
+        <!-- 副标题 -->
+        <p class="text-center text-muted">欢迎参加本次在线答题，请认真作答。</p>
+
+        <form id="quizForm">
+            <!-- 选择题 -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    选择题
+                    <small class="text-muted d-block">请从以下选项中选择正确答案。</small>
+                </div>
+                <div class="card-body">
+                    <p>1. 以下哪个是编程语言？</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="q1a1" value="A">
+                        <label class="form-check-label" for="q1a1">A. HTML</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="q1a2" value="B">
+                        <label class="form-check-label" for="q1a2">B. CSS</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="q1a3" value="C">
+                        <label class="form-check-label" for="q1a3">C. JavaScript</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 多选题 -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    多选题
+                    <small class="text-muted d-block">请从以下选项中选择所有正确答案。</small>
+                </div>
+                <div class="card-body">
+                    <p>2. 以下哪些是前端技术？（可多选）</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="question2" id="q2a1" value="A">
+                        <label class="form-check-label" for="q2a1">A. HTML</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="question2" id="q2a2" value="B">
+                        <label class="form-check-label" for="q2a2">B. CSS</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="question2" id="q2a3" value="C">
+                        <label class="form-check-label" for="q2a3">C. JavaScript</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 判断对错 -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    判断对错
+                    <small class="text-muted d-block">请判断以下陈述是否正确。</small>
+                </div>
+                <div class="card-body">
+                    <p>3. Bootstrap是一个前端框架。</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="q3a1" value="true">
+                        <label class="form-check-label" for="q3a1">正确</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="q3a2" value="false">
+                        <label class="form-check-label" for="q3a2">错误</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 填空题 -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    填空题
+                    <small class="text-muted d-block">请在输入框中填写正确答案。</small>
+                </div>
+                <div class="card-body">
+                    <p>4. 请填写Bootstrap的版本号：</p>
+                    <input type="text" class="form-control" name="question4" placeholder="请输入答案">
+                </div>
+            </div>
+
+            <!-- 提交按钮 -->
+            <button type="submit" class="btn btn-primary">提交答案</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</body>
+</html>
