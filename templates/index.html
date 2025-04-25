@@ -88,7 +88,7 @@
                         {% if is_tested(test['name']) %}
                             <a class="btn btn-primary" href="{{ url_for('review', quiz_name=test['name']) }}">Review</a>
                         {% else %}
-                            <a class="btn btn-primary" href="{{ url_for('quiz', quiz_name=test['name']) }}">Take it!</a>
+                            <a class="btn btn-success" href="{{ url_for('quiz', quiz_name=test['name']) }}">Take it!</a>
                         {% endif %}
                     </div>
                 </div>

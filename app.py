@@ -18,7 +18,6 @@ def index():
     return redirect(url_for('login'))
 
 def is_tested(quiz_name):
-    print(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
     return os.path.exists(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
 app.jinja_env.globals['is_tested'] = is_tested
 
@@ -57,7 +56,7 @@ def submit(quiz_name):
     """
     selection = {}
     for key in request.form.keys():
-        selection[int(key)] = request.form.getlist(key)
+        selection[key] = request.form.getlist(key)
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)
@@ -68,7 +67,7 @@ def review(quiz_name):
     with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
         quiz = json.loads(f.read())
         for i in range(len(quiz['questions'])):
-            quiz['questions'][i]['index'] = i + 1
+            quiz['questions'][i]['index'] = str(i + 1)
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'r', encoding='utf-8') as f:
         answer = json.loads(f.read())
     return render_template('review.html', quiz=quiz, answer=answer)

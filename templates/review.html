@@ -26,14 +26,14 @@
         }
 
         .correct-input {
-    border: 2px solid #28a745; /* 绿色边框 */
-    background-color: #d4edda; /* 绿色背景 */
-}
+            border: 2px solid #28a745; /* 绿色边框 */
+            background-color: #d4edda; /* 绿色背景 */
+        }
 
-.incorrect-input {
-    border: 2px solid #dc3545; /* 红色边框 */
-    background-color: #f8d7da; /* 红色背景 */
-}
+        .incorrect-input {
+            border: 2px solid #dc3545; /* 红色边框 */
+            background-color: #f8d7da; /* 红色背景 */
+        }
 
     </style>
 </head>
@@ -56,14 +56,27 @@
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% for option in question['options'] %}
-                            {% for i in question['i'] %}
-                            	aaaa
+                            {% if option['opt'] in answer[question['index']] %}
+                                {% if 'correct' in option.keys() %}
+                                    <label class="clickable-option correct-input">
+                                        <input class="form-check-input" type="radio" name="{{ question['index'] }}"
+                                               value="{{ option['opt'] }}" disabled>
+                                        {{ option['opt'] }}
+                                    </label>
+                                {% else %}
+                                    <label class="clickable-option incorrect-input">
+                                        <input class="form-check-input" type="radio" name="{{ question['index'] }}"
+                                               value="{{ option['opt'] }}" disabled>
+                                        {{ option['opt'] }}
+                                    </label>
+                                {% endif %}
+                            {% else %}
+                                <label class="clickable-option">
+                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}"
+                                           value="{{ option['opt'] }}" disabled>
+                                    {{ option['opt'] }}
+                                </label>
                             {% endif %}
-                            <label class="clickable-option">
-                                <input class="form-check-input" type="radio" name="{{ question['index'] }}"
-                                       value="{{ option['opt'] }}">
-                                {{ option['opt'] }}
-                            </label>
                         {% endfor %}
                     </div>
                 </div>
@@ -77,11 +90,27 @@
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% for option in question['multioptions'] %}
-                            <label class="clickable-option">
-                                <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
-                                       value="{{ option['opt'] }}">
-                                {{ option['opt'] }}
-                            </label>
+                            {% if option['opt'] in answer[question['index']] %}
+                                {% if 'correct' in option.keys() %}
+                                    <label class="clickable-option correct-input">
+                                        <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
+                                               value="{{ option['opt'] }}" disabled>
+                                        {{ option['opt'] }}
+                                    </label>
+                                {% else %}
+                                    <label class="clickable-option incorrect-input">
+                                        <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
+                                               value="{{ option['opt'] }}" disabled>
+                                        {{ option['opt'] }}
+                                    </label>
+                                {% endif %}
+                            {% else %}
+                                <label class="clickable-option">
+                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
+                                           value="{{ option['opt'] }}" disabled>
+                                    {{ option['opt'] }}
+                                </label>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -95,7 +124,7 @@
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         <input type="text" class="form-control" name="{{ question['index'] }}"
-                               placeholder="Input your answer here">
+                               placeholder="{{ answer[question['index']][0] }}" disabled>
                     </div>
                 </div>
             {% endif %}
