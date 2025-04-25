@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, request, url_for, session
+from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory
 import json
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
 
 @app.route('/')
 def index():
@@ -12,13 +13,16 @@ def index():
         for quiz_name in os.listdir('data/quizs'):
             with open(f'data/quizs/{quiz_name}', 'r', encoding='utf-8') as f:
                 quiz = json.loads(f.read())
-                tests.append({'name':quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
-        return render_template('index.html', class_=session['class'],name=session['name'], tests=tests)
+                tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
+        return render_template('index.html', class_=session['class'], name=session['name'], tests=tests)
 
     return redirect(url_for('login'))
 
+
 def is_tested(quiz_name):
     return os.path.exists(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
+
+
 app.jinja_env.globals['is_tested'] = is_tested
 
 
@@ -68,7 +72,7 @@ def submit(quiz_name):
     for question in quiz['questions']:
         if 'options' in question.keys():
             if selection.get(question['index'], False):
-                selection[question['index']].append(0)      # last one to be the score
+                selection[question['index']].append(0)  # last one to be the score
                 for option in question['options']:
                     print(option.get('correct', ''))
                     if option['opt'] == selection[question['index']][0] and option.get('correct', '') == 'true':
@@ -95,10 +99,10 @@ def submit(quiz_name):
             else:
                 selection[question['index']] = [0]
 
-
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)
     return "Hello"
+
 
 @app.route('/review/<quiz_name>')
 def review(quiz_name):
@@ -114,6 +118,11 @@ def review(quiz_name):
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+
+@app.route('/img/<folder>/<filename>')
+def img(folder, filename):
+    return send_from_directory(folder, filename)
 
 
 if __name__ == '__main__':
