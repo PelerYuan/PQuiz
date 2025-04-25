@@ -3,102 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>在线答题网站</title>
-    <!-- Bootstrap CSS -->
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <title>用户主页</title>
+    <!-- 引入Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 标题区域样式 */
+        .header-section {
+            background-color: #007bff; /* 纯色背景 */
+            color: white; /* 文字颜色 */
+            padding: 80px 0; /* 上下内边距 */
+            text-align: center; /* 文字居中 */
+            margin-bottom: 40px; /* 与下方内容的间距 */
+        }
+        .header-title {
+            font-size: 48px; /* 主标题字体大小 */
+            font-weight: bold; /* 主标题加粗 */
+            margin-bottom: 20px; /* 主标题与副标题的间距 */
+        }
+        .header-subtitle {
+            font-size: 24px; /* 副标题字体大小 */
+            font-weight: 300; /* 副标题字体粗细 */
+        }
+        .exam-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            transition: transform 0.2s;
+        }
+        .exam-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <!-- 主标题 -->
-        <h1 class="text-center">在线答题</h1>
-        <!-- 副标题 -->
-        <p class="text-center text-muted">欢迎参加本次在线答题，请认真作答。</p>
-
-        <form id="quizForm">
-            <!-- 选择题 -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    选择题
-                    <small class="text-muted d-block">请从以下选项中选择正确答案。</small>
-                </div>
-                <div class="card-body">
-                    <p>1. 以下哪个是编程语言？</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question1" id="q1a1" value="A">
-                        <label class="form-check-label" for="q1a1">A. HTML</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question1" id="q1a2" value="B">
-                        <label class="form-check-label" for="q1a2">B. CSS</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question1" id="q1a3" value="C">
-                        <label class="form-check-label" for="q1a3">C. JavaScript</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 多选题 -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    多选题
-                    <small class="text-muted d-block">请从以下选项中选择所有正确答案。</small>
-                </div>
-                <div class="card-body">
-                    <p>2. 以下哪些是前端技术？（可多选）</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="question2" id="q2a1" value="A">
-                        <label class="form-check-label" for="q2a1">A. HTML</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="question2" id="q2a2" value="B">
-                        <label class="form-check-label" for="q2a2">B. CSS</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="question2" id="q2a3" value="C">
-                        <label class="form-check-label" for="q2a3">C. JavaScript</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 判断对错 -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    判断对错
-                    <small class="text-muted d-block">请判断以下陈述是否正确。</small>
-                </div>
-                <div class="card-body">
-                    <p>3. Bootstrap是一个前端框架。</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question3" id="q3a1" value="true">
-                        <label class="form-check-label" for="q3a1">正确</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="question3" id="q3a2" value="false">
-                        <label class="form-check-label" for="q3a2">错误</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 填空题 -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    填空题
-                    <small class="text-muted d-block">请在输入框中填写正确答案。</small>
-                </div>
-                <div class="card-body">
-                    <p>4. 请填写Bootstrap的版本号：</p>
-                    <input type="text" class="form-control" name="question4" placeholder="请输入答案">
-                </div>
-            </div>
-
-            <!-- 提交按钮 -->
-            <button type="submit" class="btn btn-primary">提交答案</button>
-        </form>
+    <!-- 标题区域 -->
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">欢迎回来，张三！</h1>
+            <p class="header-subtitle">以下是您的待参加考试，请合理安排时间</p>
+        </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <!-- 考试卡片区域 -->
+    <div class="container">
+        <div class="row">
+            <!-- 考试卡片 1 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>数学期中考试</h5>
+                    <p>时间：2023年11月15日</p>
+                    <p>地点：教室A101</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 2 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>英语期末考试</h5>
+                    <p>时间：2023年12月20日</p>
+                    <p>地点：教室B202</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 3 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>物理模拟考试</h5>
+                    <p>时间：2023年11月30日</p>
+                    <p>地点：教室C303</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 4 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>化学期中考试</h5>
+                    <p>时间：2023年11月18日</p>
+                    <p>地点：教室D404</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 5 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>生物期末考试</h5>
+                    <p>时间：2023年12月25日</p>
+                    <p>地点：教室E505</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 6 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>历史模拟考试</h5>
+                    <p>时间：2023年11月28日</p>
+                    <p>地点：教室F606</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 7 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>地理期中考试</h5>
+                    <p>时间：2023年11月20日</p>
+                    <p>地点：教室G707</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 8 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>政治期末考试</h5>
+                    <p>时间：2023年12月30日</p>
+                    <p>地点：教室H808</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 9 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>信息技术考试</h5>
+                    <p>时间：2023年11月25日</p>
+                    <p>地点：教室I909</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+            <!-- 考试卡片 10 -->
+            <div class="col-md-4">
+                <div class="exam-card">
+                    <h5>体育期末考试</h5>
+                    <p>时间：2023年12月28日</p>
+                    <p>地点：操场</p>
+                    <button class="btn btn-primary">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ quiz['title'] }}</title>
+    <title>Result of {{ quiz['title'] }}</title>
     <!-- Bootstrap CSS -->
     <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
     <style>
@@ -16,11 +16,9 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .clickable-option:hover {
             background-color: #f8f9fa;
         }
-
         .form-check-input {
             margin-right: 10px;
         }
@@ -29,11 +27,11 @@
 <body>
 <div class="container mt-5">
     <!-- Title -->
-    <h1 class="text-center">{{ quiz['title'] }}</h1>
+    <h1 class="text-center">Result of {{ quiz['title'] }}</h1>
     <!-- Subtitle -->
     <p class="text-center text-muted">{{ quiz['subtitle'] }}</p>
 
-    <form id="quizForm" action="{{ url_for('correct') }}" method="post">
+    <form id="quizForm" action="{{ url_for('index') }}" method="post">
         {% for question in quiz['questions'] %}
             <!-- Single Option -->
             {% if 'options' in question.keys() %}
@@ -47,11 +45,9 @@
                         {% for option in question['options'] %}
                             <label class="clickable-option">
                                 {% if 'correct' in option.keys() %}
-                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}"
-                                           value="correct">
+                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}" value="correct">
                                 {% else %}
-                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}"
-                                           value="incorrect">
+                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}">
                                 {% endif %}
                                 {{ option['opt'] }}
                             </label>
@@ -70,11 +66,9 @@
                         {% for option in question['multioptions'] %}
                             <label class="clickable-option">
                                 {% if 'correct' in option.keys() %}
-                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
-                                           value="correct">
+                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}" value="correct">
                                 {% else %}
-                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
-                                           value="incorrect">
+                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}">
                                 {% endif %}
                                 {{ option['opt'] }}
                             </label>
@@ -90,15 +84,14 @@
                     </div>
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
-                        <input type="text" class="form-control" name="{{ question['index'] }}"
-                               placeholder="Input your answer here">
+                        <input type="text" class="form-control" name="{{ question['index'] }}" placeholder="Input your answer here">
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Finish review</button>
     </form>
 </div>
 
