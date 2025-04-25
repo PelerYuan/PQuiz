@@ -44,7 +44,7 @@ def quiz(quiz_name):
     with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
         quiz = json.loads(f.read())
         for i in range(len(quiz['questions'])):
-            quiz['questions'][i]['index'] = i + 1
+            quiz['questions'][i]['index'] = (i + 1)
 
     return render_template('quiz.html', quiz=quiz, quiz_name=quiz_name)
 
@@ -57,6 +57,44 @@ def submit(quiz_name):
     selection = {}
     for key in request.form.keys():
         selection[key] = request.form.getlist(key)
+
+    with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+        quiz = json.loads(f.read())
+        quiz['points'] = int(quiz['points'])
+        for i in range(len(quiz['questions'])):
+            quiz['questions'][i]['index'] = str(i + 1)
+
+    score = quiz['points']
+    for question in quiz['questions']:
+        if 'options' in question.keys():
+            if selection.get(question['index'], False):
+                selection[question['index']].append(0)      # last one to be the score
+                for option in question['options']:
+                    print(option.get('correct', ''))
+                    if option['opt'] == selection[question['index']][0] and option.get('correct', '') == 'true':
+                        selection[question['index']][-1] = score
+                        break
+            else:
+                selection[question['index']] = [0]
+
+        elif 'multioptions' in question.keys():
+            if selection.get(question['index'], False):
+                selection[question['index']].append(0)
+                question_count = len(question['multioptions'])
+                for option in question['multioptions']:
+                    print(option.get('correct', ''))
+                    print(option['opt'])
+                    print(selection[question['index']])
+                    if option['opt'] in selection[question['index']]:
+                        if option.get('correct', '') == 'true':
+                            selection[question['index']][-1] += score / question_count
+                        else:
+                            selection[question['index']][-1] -= score / question_count
+                if selection[question['index']][-1] < 0:
+                    selection[question['index']][-1] = 0
+            else:
+                selection[question['index']] = [0]
+
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)

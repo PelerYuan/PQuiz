@@ -51,7 +51,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         Multiple choice (One answer only)
-                        <small class="text-muted d-block">Points: {{ quiz['points'] }}</small>
+                        <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
                     </div>
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
@@ -85,7 +85,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         Multiple choice (Not only one answer)
-                        <small class="text-muted d-block">Points: {{ quiz['points'] }}</small>
+                        <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
                     </div>
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
@@ -119,7 +119,8 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         Fill in the blank
-                        <small class="text-muted d-block">Points: {{ quiz['points'] }}</small>
+                        <small class="text-muted d-block">Points: Unknow. Please listen to Igor carefully to get
+                            this.</small>
                     </div>
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
