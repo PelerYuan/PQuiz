@@ -60,6 +60,7 @@
             padding: 20px 0; /* 上下内边距 */
             text-align: center; /* 文字居中 */
         }
+
         .footer-text {
             margin: 0; /* 移除默认的外边距 */
             font-size: 16px; /* 字体大小 */
@@ -67,40 +68,44 @@
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <!-- Title area -->
-        <div class="header-section">
-            <div class="container">
-                <h1 class="header-title">Welcome, {{ user_name }}!</h1>
-                <p class="header-subtitle">Here are the tests you will be taking</p>
-            </div>
-        </div>
-
-        <!-- Test cards -->
+<div class="wrapper">
+    <!-- Title area -->
+    <div class="header-section">
         <div class="container">
-            <div class="row">
-                {% for test in tests %}
-                    <div class="col-md-4">
-                        <div class="exam-card">
-                            <h5>{{ test['title'] }}</h5>
-                            <p>{{ test['subtitle'] }}</p>
+            <h1 class="header-title">Welcome, {{ name }}!</h1>
+            <p class="header-subtitle">Here are the tests you will be taking</p>
+        </div>
+    </div>
+
+    <!-- Test cards -->
+    <div class="container">
+        <div class="row">
+            {% for test in tests %}
+                <div class="col-md-4">
+                    <div class="exam-card">
+                        <h5>{{ test['title'] }}</h5>
+                        <p>{{ test['subtitle'] }}</p>
+                        {% if is_tested(test['name']) %}
+                            <a class="btn btn-primary" href="{{ url_for('review', quiz_name=test['name']) }}">Review</a>
+                        {% else %}
                             <a class="btn btn-primary" href="{{ url_for('quiz', quiz_name=test['name']) }}">Take it!</a>
-                        </div>
+                        {% endif %}
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 
-    <!-- Page foot -->
-    <div class="footer-section">
-        <div class="container">
-            <p class="footer-text">© 2025 PQuiz | Created by Peler</p>
-        </div>
+<!-- Page foot -->
+<div class="footer-section">
+    <div class="container">
+        <p class="footer-text">© 2025 PQuiz | Created by Peler</p>
     </div>
+</div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </body>
 </html>

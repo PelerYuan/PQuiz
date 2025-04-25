@@ -33,7 +33,7 @@
     <!-- Subtitle -->
     <p class="text-center text-muted">{{ quiz['subtitle'] }}</p>
 
-    <form id="quizForm" action="{{ url_for('correct') }}" method="post">
+    <form id="quizForm" action="{{ url_for('submit', quiz_name=quiz_name) }}" method="post">
         {% for question in quiz['questions'] %}
             <!-- Single Option -->
             {% if 'options' in question.keys() %}
@@ -46,13 +46,8 @@
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% for option in question['options'] %}
                             <label class="clickable-option">
-                                {% if 'correct' in option.keys() %}
-                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}"
-                                           value="correct">
-                                {% else %}
-                                    <input class="form-check-input" type="radio" name="{{ question['index'] }}"
-                                           value="incorrect">
-                                {% endif %}
+                                <input class="form-check-input" type="radio" name="{{ question['index'] }}"
+                                       value="{{ option['opt'] }}">
                                 {{ option['opt'] }}
                             </label>
                         {% endfor %}
@@ -69,13 +64,8 @@
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% for option in question['multioptions'] %}
                             <label class="clickable-option">
-                                {% if 'correct' in option.keys() %}
-                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
-                                           value="correct">
-                                {% else %}
-                                    <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
-                                           value="incorrect">
-                                {% endif %}
+                                <input class="form-check-input" type="checkbox" name="{{ question['index'] }}"
+                                       value="{{ option['opt'] }}">
                                 {{ option['opt'] }}
                             </label>
                         {% endfor %}
@@ -98,7 +88,7 @@
         {% endfor %}
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mb-5">Submit</button>
     </form>
 </div>
 
