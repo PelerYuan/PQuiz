@@ -35,6 +35,11 @@
             background-color: #f8d7da; /* 红色背景 */
         }
 
+        .incorrect-card {
+            border: 2px solid #dc3545; /* 红色边框 */
+            background-color: #f8d7da; /* 红色背景 */
+        }
+
     </style>
 </head>
 <body>
@@ -44,16 +49,22 @@
     <!-- Subtitle -->
     <p class="text-center text-muted">{{ quiz['subtitle'] }}</p>
     <p class="text-dark-emphasis">Total score: {{ answer['score']+' / '+answer['total_score'] }}</p>
-    // TODO: colourful score
     <form id="quizForm">
         {% for question in quiz['questions'] %}
             <!-- Single Option -->
             {% if 'options' in question.keys() %}
                 <div class="card mb-3">
-                    <div class="card-header">
-                        Multiple choice (One answer only)
-                        <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
-                    </div>
+                    {% if is_answered(answer[question['index']]) %}
+                        <div class="card-header">
+                            Multiple choice (One answer only)
+                            <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
+                        </div>
+                    {% else %}
+                        <div class="card-header incorrect-card">
+                            Multiple choice (One answer only)
+                            <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
+                        </div>
+                    {% endif %}
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% if 'image' in question.keys() %}
@@ -89,10 +100,17 @@
                 <!-- Multiple Option -->
             {% elif 'multioptions' in question.keys() %}
                 <div class="card mb-3">
-                    <div class="card-header">
-                        Multiple choice (Not only one answer)
-                        <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
-                    </div>
+                    {% if is_answered(answer[question['index']]) %}
+                        <div class="card-header">
+                            Multiple choice (Not only one answer)
+                            <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
+                        </div>
+                    {% else %}
+                        <div class="card-header incorrect-card">
+                            Multiple choice (Not only one answer)
+                            <small class="text-muted d-block">Points: {{ answer[question['index']][-1] }}</small>
+                        </div>
+                    {% endif %}
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% if 'image' in question.keys() %}
@@ -128,11 +146,19 @@
                 <!-- Input question -->
             {% elif 'itext' in question.keys() %}
                 <div class="card mb-3">
-                    <div class="card-header">
-                        Fill in the blank
-                        <small class="text-muted d-block">Points: Unknow. Please listen to Igor carefully to get
-                            this.</small>
-                    </div>
+                    {% if is_answered(answer[question['index']]) %}
+                        <div class="card-header">
+                            Fill in the blank
+                            <small class="text-muted d-block">Points: Unknow. Please listen to Igor carefully to get
+                                this.</small>
+                        </div>
+                    {% else %}
+                        <div class="card-header incorrect-card">
+                            Fill in the blank
+                            <small class="text-muted d-block">Points: Unknow. Please listen to Igor carefully to get
+                                this.</small>
+                        </div>
+                    {% endif %}
                     <div class="card-body">
                         <p>{{ question['index'] }}. {{ question['Q'] }}</p>
                         {% if 'image' in question.keys() %}

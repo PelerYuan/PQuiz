@@ -21,8 +21,6 @@ def index():
 
 def is_tested(quiz_name):
     return os.path.exists(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
-
-
 app.jinja_env.globals['is_tested'] = is_tested
 
 
@@ -101,8 +99,16 @@ def submit(quiz_name):
                 total_score += selection[question['index']][-1]
             else:
                 selection[question['index']] = [0]
+
+        elif 'itext' in question.keys():
+            if selection.get(question['index'], False):
+                selection[question['index']].append(-404)
+            else:
+                selection[question['index']] = [-404]
+
         selection['score'] = str(total_score)
         selection['total_score'] = str(score * len(quiz['questions']))
+
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)
@@ -118,6 +124,10 @@ def review(quiz_name):
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'r', encoding='utf-8') as f:
         answer = json.loads(f.read())
     return render_template('review.html', quiz=quiz, answer=answer)
+
+def is_answered(answer):
+    return len(answer) > 1
+app.jinja_env.globals['is_answered'] = is_answered
 
 
 @app.route('/test')
