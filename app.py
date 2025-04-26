@@ -41,6 +41,7 @@ def login():
             return redirect(url_for('admin_login'))
 
     classes = os.listdir('data/students/')
+    classes.remove('admin')
     return render_template('login.html', classes=classes)
 
 
@@ -215,6 +216,7 @@ def trial(quiz_name):
 def result(quiz_name):
     if session.get('name') == 'admin':
         classes = os.listdir('data/students/')
+        classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name="None", classes=classes,
                                students="None")
     return redirect(url_for('index'))
@@ -231,6 +233,7 @@ def result_class(quiz_name, class_name):
                     data = json.loads(f.read())
                     students[student] = f"{data['score']} / {data['total_score']}"
         classes = os.listdir('data/students/')
+        classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
                                students=students)
     return redirect(url_for('index'))
