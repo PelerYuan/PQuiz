@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory, jsonify
 import json
 import os
 
@@ -21,6 +21,8 @@ def index():
 
 def is_tested(quiz_name):
     return os.path.exists(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
+
+
 app.jinja_env.globals['is_tested'] = is_tested
 
 
@@ -109,7 +111,6 @@ def submit(quiz_name):
         selection['score'] = str(total_score)
         selection['total_score'] = str(score * len(quiz['questions']))
 
-
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)
 
@@ -126,8 +127,11 @@ def review(quiz_name):
         answer = json.loads(f.read())
     return render_template('review.html', quiz=quiz, answer=answer)
 
+
 def is_answered(answer):
     return len(answer) > 1
+
+
 app.jinja_env.globals['is_answered'] = is_answered
 
 
@@ -139,6 +143,57 @@ def test():
 @app.route('/img/<folder>/<filename>')
 def img(folder, filename):
     return send_from_directory(folder, filename)
+
+
+# admin function
+@app.route('/admin')
+def admin():
+    tests = []
+    for quiz_name in os.listdir('data/quizs'):
+        with open(f'data/quizs/{quiz_name}', 'r', encoding='utf-8') as f:
+            quiz = json.loads(f.read())
+            tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
+    return render_template('admin/admin.html', tests=tests)
+
+
+@app.route('/delete/<quiz_name>')
+def delete(quiz_name):
+    os.remove(f'data/quizs/{quiz_name}.json')
+    return redirect(url_for('admin'))
+
+
+@app.route('/edit/<quiz_name>')
+def edit(quiz_name):
+    with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+        return render_template('admin/edit.html', quiz_name=quiz_name, content=f.read())
+
+
+# 保存 JSON 数据的接口
+@app.route('/save/<quiz_name>', methods=['POST'])
+def save(quiz_name):
+    try:
+        # 获取前端发送的 JSON 数据
+        json_data = request.get_json()
+
+        # 将 JSON 数据保存到文件
+        with open(f'data/quizs/{quiz_name}.json', 'w') as f:
+            json.dump(json_data, f, indent=4)
+
+        # 返回成功响应
+        return jsonify({"message": "JSON saved successfully!"}), 200
+    except Exception as e:
+        # 返回错误响应
+        return jsonify({"error": str(e)}), 400
+
+
+@app.route('/trial/<quiz_name>')
+def trial(quiz_name):
+    with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+        quiz = json.loads(f.read())
+        for i in range(len(quiz['questions'])):
+            quiz['questions'][i]['index'] = (i + 1)
+
+    return render_template('admin/trial.html', quiz=quiz, quiz_name=quiz_name)
 
 
 if __name__ == '__main__':
