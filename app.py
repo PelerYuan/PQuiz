@@ -112,7 +112,8 @@ def submit(quiz_name):
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)
-    return "Hello"
+
+    return render_template('finish.html')
 
 
 @app.route('/review/<quiz_name>')
