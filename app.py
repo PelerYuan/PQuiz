@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory, jsonify
+from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory, jsonify, send_file
 import json
 import os
 import pandas as pd
@@ -247,10 +247,11 @@ def excel(quiz_name, class_name):
                 output['score'].append(float(data['score']))
                 output['total_score'].append(float(data['total_score']))
                 output['percentage'].append(float(data['score']) / float(data['total_score']))
-                # 创建DataFrame
-                df = pd.DataFrame(output)
-                # 将DataFrame写入Excel文件
-                df.to_excel(f'{quiz_name}_{class_name}.xlsx', index=False)
+    # 创建DataFrame
+    df = pd.DataFrame(output)
+    # 将DataFrame写入Excel文件
+    df.to_excel(f'tmp/{quiz_name}_{class_name}.xlsx', index=False)
+    return send_file(f'tmp/{quiz_name}_{class_name}.xlsx', as_attachment=True)
 
 if __name__ == '__main__':
     app.run()
