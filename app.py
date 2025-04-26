@@ -196,5 +196,27 @@ def trial(quiz_name):
     return render_template('admin/trial.html', quiz=quiz, quiz_name=quiz_name)
 
 
+@app.route('/result/<quiz_name>')
+def result(quiz_name):
+    classes = os.listdir('data/students/')
+    return render_template('admin/result.html', quiz_name=quiz_name, class_name="None", classes=classes,
+                           students="None")
+
+
+@app.route('/result/<quiz_name>/<class_name>')
+def result_class(quiz_name, class_name):
+    students = {}
+    for filename in os.listdir(f"data/students/{class_name}"):
+        quiz, student = filename[:-5].split('_')
+        if quiz_name == quiz:
+            with open(f"data/students/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
+                data = json.loads(f.read())
+                print(data)
+                students[student] = f"{data['score']} / {data['total_score']}"
+    classes = os.listdir('data/students/')
+    return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
+                           students=students)
+
+
 if __name__ == '__main__':
     app.run()

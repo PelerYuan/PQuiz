@@ -136,8 +136,8 @@
                         <p class="exam-subtitle">{{ test['subtitle'] }}</p>
                     </div>
                     <div class="exam-actions">
+                        <a class="btn btn-custom btn-edit" href="{{ url_for('result', quiz_name=test['name']) }}">Result</a>
                         <a class="btn btn-custom btn-trial" href="{{ url_for('trial', quiz_name=test['name']) }}">Trial</a>
-{#                        <a class="btn btn-custom btn-edit" href="">Edit</a>#}
                         <a class="btn btn-custom btn-source" href="{{ url_for('edit', quiz_name=test['name']) }}">Source Code</a>
                         <button class="btn btn-custom btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-quiz-name="{{ test['name'] }}">Delete</button>
                     </div>
