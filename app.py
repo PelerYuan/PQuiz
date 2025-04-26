@@ -70,8 +70,10 @@ def submit(quiz_name):
 
     score = quiz['points']
     total_score = 0
+    question_count = 0
     for question in quiz['questions']:
         if 'options' in question.keys():
+            question_count += 1
             if selection.get(question['index'], False):
                 selection[question['index']].append(0)  # last one to be the score
                 for option in question['options']:
@@ -84,6 +86,7 @@ def submit(quiz_name):
                 selection[question['index']] = [0]
 
         elif 'multioptions' in question.keys():
+            question_count += 1
             if selection.get(question['index'], False):
                 selection[question['index']].append(0)
                 question_count = len(question['multioptions'])
@@ -109,7 +112,7 @@ def submit(quiz_name):
                 selection[question['index']] = [-404]
 
         selection['score'] = str(total_score)
-        selection['total_score'] = str(score * len(quiz['questions']))
+        selection['total_score'] = str(score * question_count)  # Ignore itext
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)

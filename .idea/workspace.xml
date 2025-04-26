@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="admin page trial edit delete">
-      <change afterPath="$PROJECT_DIR$/templates/admin/result.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="result">
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +166,7 @@
       <workItem from="1745570969960" duration="10348000" />
       <workItem from="1745627690989" duration="8092000" />
       <workItem from="1745658667709" duration="106000" />
-      <workItem from="1745658780489" duration="2343000" />
+      <workItem from="1745658780489" duration="2714000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -220,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745634039613</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="result">
+      <option name="closed" value="true" />
+      <created>1745661378822</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1745661378822</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,11 +249,12 @@
     <MESSAGE value="review finish" />
     <MESSAGE value="finish page" />
     <MESSAGE value="admin page trial edit delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin page trial edit delete" />
+    <MESSAGE value="result" />
+    <option name="LAST_COMMIT_MESSAGE" value="result" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PQuiz$json.coverage" NAME="test Coverage Results" MODIFIED="1745558494735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745661127151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745661314321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$test.coverage" NAME="test Coverage Results" MODIFIED="1745584843828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1745550746965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PQuiz$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1745551905219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
