@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for, session, send_from_directory, jsonify
 import json
 import os
+import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -214,12 +215,42 @@ def result_class(quiz_name, class_name):
         if quiz_name == quiz:
             with open(f"data/students/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
                 data = json.loads(f.read())
-                print(data)
                 students[student] = f"{data['score']} / {data['total_score']}"
     classes = os.listdir('data/students/')
     return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
                            students=students)
 
+@app.route('/review/<quiz_name>/<class_name>/<student_name>')
+def review_admin(quiz_name, class_name, student_name):
+    with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+        quiz = json.loads(f.read())
+        for i in range(len(quiz['questions'])):
+            quiz['questions'][i]['index'] = str(i + 1)
+    with open(f"data/students/{class_name}/{quiz_name}_{student_name}.json", 'r', encoding='utf-8') as f:
+        answer = json.loads(f.read())
+    return render_template('review.html', quiz=quiz, answer=answer)
+
+@app.route('/excel/<quiz_name>/<class_name>')
+def excel(quiz_name, class_name):
+    output = {
+        "student_name": [],
+        "score": [],
+        "total_score": [],
+        "percentage": []
+    }
+    for filename in os.listdir(f"data/students/{class_name}"):
+        quiz, student = filename[:-5].split('_')
+        if quiz_name == quiz:
+            with open(f"data/students/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
+                data = json.loads(f.read())
+                output['student_name'].append(student)
+                output['score'].append(float(data['score']))
+                output['total_score'].append(float(data['total_score']))
+                output['percentage'].append(float(data['score']) / float(data['total_score']))
+                # 创建DataFrame
+                df = pd.DataFrame(output)
+                # 将DataFrame写入Excel文件
+                df.to_excel(f'{quiz_name}_{class_name}.xlsx', index=False)
 
 if __name__ == '__main__':
     app.run()

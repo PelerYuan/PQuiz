@@ -21,7 +21,11 @@
 <header class="bg-light py-3">
     <div class="container d-flex justify-content-between align-items-center">
         <span class="h5 mb-0">Result of {{ quiz_name }}</span>
-        <div>
+        <div class="btn-group" role="group">
+            {% if class_name != "None" %}
+                <a class="btn btn-custom" href="{{ url_for('excel', quiz_name=quiz_name, class_name=class_name) }}">Download
+                    Excel File</a>
+            {% endif %}
             <select class="form-select" id="classSelect" onchange="redirectToClass()">
                 {% if class_name == "None" %}
                     <option selected>Select a class</option>
@@ -43,31 +47,32 @@
 </header>
 
 <!-- 成绩列表 -->
-{% if students != "None" %}
-    {% if students %}
-        <main class="container mt-4">
+<main class="container mt-4">
+    {% if students != "None" %}
+        {% if students %}
             <ul class="list-group">
                 {% for student in students.keys() %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>{{ student }}</span>
                         <div>
                             <span class="badge bg-primary rounded-pill me-2">{{ students[student] }}</span>
-                            <a class="btn btn-sm btn-outline-secondary">Detail</a>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               href="{{ url_for('review_admin', quiz_name=quiz_name, class_name=class_name, student_name=student) }}">Detail</a>
                         </div>
                     </li>
                 {% endfor %}
             </ul>
-        </main>
+        {% else %}
+            <div class="alert alert-info" role="info">
+                No data here.
+            </div>
+        {% endif %}
     {% else %}
-        <div class="alert alert-info" role="info">
-            No data here.
+        <div class="alert alert-warning" role="alert">
+            Please select a class.
         </div>
     {% endif %}
-{% else %}
-    <div class="alert alert-warning" role="alert">
-        Please select a class.
-    </div>
-{% endif %}
+</main>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
