@@ -69,6 +69,7 @@ def submit(quiz_name):
             quiz['questions'][i]['index'] = str(i + 1)
 
     score = quiz['points']
+    total_score = 0
     for question in quiz['questions']:
         if 'options' in question.keys():
             if selection.get(question['index'], False):
@@ -77,6 +78,7 @@ def submit(quiz_name):
                     print(option.get('correct', ''))
                     if option['opt'] == selection[question['index']][0] and option.get('correct', '') == 'true':
                         selection[question['index']][-1] = score
+                        total_score += score
                         break
             else:
                 selection[question['index']] = [0]
@@ -96,8 +98,11 @@ def submit(quiz_name):
                             selection[question['index']][-1] -= score / question_count
                 if selection[question['index']][-1] < 0:
                     selection[question['index']][-1] = 0
+                total_score += selection[question['index']][-1]
             else:
                 selection[question['index']] = [0]
+        selection['score'] = str(total_score)
+        selection['total_score'] = str(score * len(quiz['questions']))
 
     with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
         json.dump(selection, f, ensure_ascii=False, indent=4)

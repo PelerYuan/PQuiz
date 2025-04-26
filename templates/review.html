@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ quiz['title'] }}</title>
+    <title>Review of {{ quiz['title'] }}</title>
     <!-- Bootstrap CSS -->
     <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
     <style>
@@ -40,10 +40,11 @@
 <body>
 <div class="container mt-5">
     <!-- Title -->
-    <h1 class="text-center">{{ quiz['title'] }}</h1>
+    <h1 class="text-center">Review of {{ quiz['title'] }}</h1>
     <!-- Subtitle -->
     <p class="text-center text-muted">{{ quiz['subtitle'] }}</p>
-
+    <p class="text-dark-emphasis">Total score: {{ answer['score']+' / '+answer['total_score'] }}</p>
+    // TODO: colourful score
     <form id="quizForm">
         {% for question in quiz['questions'] %}
             <!-- Single Option -->
