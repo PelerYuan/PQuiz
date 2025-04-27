@@ -10,7 +10,7 @@ app.debug = True
 
 @app.route('/')
 def index():
-    if 'class' in session:
+    if session.get('name', 'admin') != 'admin':
         tests = []
         for quiz_name in os.listdir('data/quizs'):
             with open(f'data/quizs/{quiz_name}', 'r', encoding='utf-8') as f:
@@ -54,7 +54,7 @@ def logout():
 
 @app.route('/quiz/<quiz_name>')
 def quiz(quiz_name):
-    if 'class' in session:
+    if session.get('name', 'admin') != 'admin':
         with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
             quiz = json.loads(f.read())
             for i in range(len(quiz['questions'])):
@@ -65,7 +65,7 @@ def quiz(quiz_name):
 
 @app.route('/submit/<quiz_name>', methods=['GET','POST'])
 def submit(quiz_name):
-    if 'class' in session:
+    if session.get('name', 'admin') != 'admin':
         if request.method == 'POST':
             selection = {}
             for key in request.form.keys():
@@ -134,7 +134,7 @@ def submit(quiz_name):
 
 @app.route('/review/<quiz_name>')
 def review(quiz_name):
-    if 'class' in session:
+    if session.get('name', 'admin') != 'admin':
         with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
             quiz = json.loads(f.read())
             for i in range(len(quiz['questions'])):
