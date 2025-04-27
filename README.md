@@ -99,7 +99,7 @@ Download statistics in Excel form:
 2. Put quiz configuration files in `data/quizs`, for example:
 
 ```
-./data/quizs/                                                                                                                                                          
+./data/quizs/
 ├── quizU1.json
 └── quizU2.json
 ```
