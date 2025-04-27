@@ -162,7 +162,7 @@ def admin():
                 quiz = json.loads(f.read())
                 tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
         return render_template('admin/admin.html', tests=tests)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/delete/<quiz_name>')
@@ -170,7 +170,7 @@ def delete(quiz_name):
     if session.get('name') == 'admin':
         os.remove(f'data/quizs/{quiz_name}.json')
         return redirect(url_for('admin'))
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/edit/<quiz_name>')
@@ -178,7 +178,7 @@ def edit(quiz_name):
     if session.get('name') == 'admin':
         with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
             return render_template('admin/edit.html', quiz_name=quiz_name, content=f.read())
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 # 保存 JSON 数据的接口
@@ -198,7 +198,7 @@ def save(quiz_name):
         except Exception as e:
             # 返回错误响应
             return jsonify({"error": str(e)}), 400
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/trial/<quiz_name>')
@@ -209,7 +209,7 @@ def trial(quiz_name):
             for i in range(len(quiz['questions'])):
                 quiz['questions'][i]['index'] = (i + 1)
         return render_template('admin/trial.html', quiz=quiz, quiz_name=quiz_name)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/result/<quiz_name>')
@@ -219,7 +219,7 @@ def result(quiz_name):
         classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name="None", classes=classes,
                                students="None")
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/result/<quiz_name>/<class_name>')
@@ -236,7 +236,7 @@ def result_class(quiz_name, class_name):
         classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
                                students=students)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/review/<quiz_name>/<class_name>/<student_name>')
@@ -249,7 +249,7 @@ def review_admin(quiz_name, class_name, student_name):
         with open(f"data/students/{class_name}/{quiz_name}_{student_name}.json", 'r', encoding='utf-8') as f:
             answer = json.loads(f.read())
         return render_template('review.html', quiz=quiz, answer=answer)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/excel/<quiz_name>/<class_name>')
@@ -275,7 +275,7 @@ def excel(quiz_name, class_name):
         # 将DataFrame写入Excel文件
         df.to_excel(f'tmp/{quiz_name}_{class_name}.xlsx', index=False)
         return send_file(f'tmp/{quiz_name}_{class_name}.xlsx', as_attachment=True)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
