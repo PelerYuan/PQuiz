@@ -65,7 +65,7 @@ def submit(quiz_name):
 
         with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
             quiz = json.loads(f.read())
-            quiz['points'] = int(quiz['points'])
+            quiz['points'] = float(quiz['points'])
             for i in range(len(quiz['questions'])):
                 quiz['questions'][i]['index'] = str(i + 1)
 
