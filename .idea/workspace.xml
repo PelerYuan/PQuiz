@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="optimize README.md">
-      <change afterPath="$PROJECT_DIR$/data/quizs/quiz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="fix bug" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -185,7 +182,7 @@
       <workItem from="1745676622705" duration="1144000" />
       <workItem from="1745678432007" duration="169000" />
       <workItem from="1745716569748" duration="1406000" />
-      <workItem from="1745719242247" duration="2636000" />
+      <workItem from="1745719242247" duration="2970000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -323,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745721567977</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix bug">
+      <option name="closed" value="true" />
+      <created>1745722108079</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1745722108079</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,11 +361,12 @@
     <MESSAGE value="start README" />
     <MESSAGE value="README finish (temporary)" />
     <MESSAGE value="optimize README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimize README.md" />
+    <MESSAGE value="fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PQuiz$json.coverage" NAME="test Coverage Results" MODIFIED="1745558494735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745677678284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745721972583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$test.coverage" NAME="test Coverage Results" MODIFIED="1745661629305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1745676457566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1745551905219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
