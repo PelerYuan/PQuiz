@@ -5,6 +5,7 @@ import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+app.debug = True
 
 
 @app.route('/')
@@ -297,4 +298,4 @@ def admin_login():
     return render_template('admin/login.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
