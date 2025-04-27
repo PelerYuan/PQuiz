@@ -44,6 +44,12 @@ def login():
     classes.remove('admin')
     return render_template('login.html', classes=classes)
 
+@app.route('/logout')
+def logout():
+    session.pop('class', None)
+    session.pop('name', None)
+    return redirect(url_for('login'))
+
 
 @app.route('/quiz/<quiz_name>')
 def quiz(quiz_name):
@@ -56,69 +62,72 @@ def quiz(quiz_name):
     return redirect(url_for('login'))
 
 
-@app.route('/submit/<quiz_name>', methods=['POST'])
+@app.route('/submit/<quiz_name>', methods=['GET','POST'])
 def submit(quiz_name):
     if 'class' in session:
-        selection = {}
-        for key in request.form.keys():
-            selection[key] = request.form.getlist(key)
+        if request.method == 'POST':
+            selection = {}
+            for key in request.form.keys():
+                selection[key] = request.form.getlist(key)
 
-        with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
-            quiz = json.loads(f.read())
-            quiz['points'] = float(quiz['points'])
-            for i in range(len(quiz['questions'])):
-                quiz['questions'][i]['index'] = str(i + 1)
+            with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+                quiz = json.loads(f.read())
+                quiz['points'] = float(quiz['points'])
+                for i in range(len(quiz['questions'])):
+                    quiz['questions'][i]['index'] = str(i + 1)
 
-        score = quiz['points']
-        total_score = 0
-        question_count = 0
-        for question in quiz['questions']:
-            if 'options' in question.keys():
-                question_count += 1
-                if selection.get(question['index'], False):
-                    selection[question['index']].append(0)  # last one to be the score
-                    for option in question['options']:
-                        print(option.get('correct', ''))
-                        if option['opt'] == selection[question['index']][0] and option.get('correct', '') == 'true':
-                            selection[question['index']][-1] = score
-                            total_score += score
-                            break
-                else:
-                    selection[question['index']] = [0]
+            score = quiz['points']
+            total_score = 0
+            question_count = 0
+            for question in quiz['questions']:
+                if 'options' in question.keys():
+                    question_count += 1
+                    if selection.get(question['index'], False):
+                        selection[question['index']].append(0)  # last one to be the score
+                        for option in question['options']:
+                            print(option.get('correct', ''))
+                            if option['opt'] == selection[question['index']][0] and option.get('correct', '') == 'true':
+                                selection[question['index']][-1] = score
+                                total_score += score
+                                break
+                    else:
+                        selection[question['index']] = [0]
 
-            elif 'multioptions' in question.keys():
-                question_count += 1
-                if selection.get(question['index'], False):
-                    selection[question['index']].append(0)
-                    question_count = len(question['multioptions'])
-                    for option in question['multioptions']:
-                        print(option.get('correct', ''))
-                        print(option['opt'])
-                        print(selection[question['index']])
-                        if option['opt'] in selection[question['index']]:
-                            if option.get('correct', '') == 'true':
-                                selection[question['index']][-1] += score / question_count
-                            else:
-                                selection[question['index']][-1] -= score / question_count
-                    if selection[question['index']][-1] < 0:
-                        selection[question['index']][-1] = 0
-                    total_score += selection[question['index']][-1]
-                else:
-                    selection[question['index']] = [0]
+                elif 'multioptions' in question.keys():
+                    question_count += 1
+                    if selection.get(question['index'], False):
+                        selection[question['index']].append(0)
+                        question_count = len(question['multioptions'])
+                        for option in question['multioptions']:
+                            print(option.get('correct', ''))
+                            print(option['opt'])
+                            print(selection[question['index']])
+                            if option['opt'] in selection[question['index']]:
+                                if option.get('correct', '') == 'true':
+                                    selection[question['index']][-1] += score / question_count
+                                else:
+                                    selection[question['index']][-1] -= score / question_count
+                        if selection[question['index']][-1] < 0:
+                            selection[question['index']][-1] = 0
+                        total_score += selection[question['index']][-1]
+                    else:
+                        selection[question['index']] = [0]
 
-            elif 'itext' in question.keys():
-                if selection.get(question['index'], False):
-                    selection[question['index']].append(-404)
-                else:
-                    selection[question['index']] = [-404]
+                elif 'itext' in question.keys():
+                    if selection.get(question['index'], False):
+                        selection[question['index']].append(-404)
+                    else:
+                        selection[question['index']] = [-404]
 
-            selection['score'] = str(total_score)
-            selection['total_score'] = str(score * question_count)  # Ignore itext
+                selection['score'] = str(total_score)
+                selection['total_score'] = str(score * question_count)  # Ignore itext
 
-        with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
-            json.dump(selection, f, ensure_ascii=False, indent=4)
+            with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
+                json.dump(selection, f, ensure_ascii=False, indent=4)
 
-        return render_template('finish.html')
+            return render_template('finish.html')
+        else:
+            return render_template('finish.html')
     return redirect(url_for('login'))
 
 

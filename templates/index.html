@@ -65,6 +65,13 @@
             margin: 0; /* 移除默认的外边距 */
             font-size: 16px; /* 字体大小 */
         }
+
+        .logout-button {
+            position: absolute; /* 绝对定位 */
+            top: 20px; /* 距离顶部20像素 */
+            right: 20px; /* 距离右侧20像素 */
+            z-index: 1000; /* 确保按钮在最上层 */
+        }
     </style>
 </head>
 <body>
@@ -74,6 +81,7 @@
         <div class="container">
             <h1 class="header-title">Welcome, {{ name }}!</h1>
             <p class="header-subtitle">Here are the tests you will be taking</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger logout-button">Logout</a>
         </div>
     </div>
 
