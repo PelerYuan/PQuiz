@@ -1,0 +1,55 @@
+{
+    "title":"Title",
+    "subtitle":"Subtitle",
+    "points": "points per questions here",
+	"image_folder": "image location",
+    "questions":
+    [
+
+        {
+            "Q": "Question here!",
+            "options": [
+                {
+                    "opt": "a. Option",
+                    "correct": "true"
+                },
+                {
+                    "opt": "b. Option"
+                },
+                {
+                    "opt": "c. Option"
+                },
+                {
+                    "opt": "d. Option"
+                }
+            ]
+        },
+        {
+            "Q": "Question",
+            "itext": "Answer"
+        },
+        {
+            "Q": "Multiple answers question:",
+            "image" : "q4.png",
+			"multioptions": [
+                {
+                    "opt": "a. ",
+                    "correct": "true"
+                },
+                {
+                    "opt": "b.  ",
+                    "correct": "true"
+                },
+                {
+                    "opt": "c.  ",
+                    "correct": "true"
+                },
+                {
+                    "opt": "d.  ",
+                    "correct": "true"
+                }
+            ]
+        }
+    ]
+
+}
