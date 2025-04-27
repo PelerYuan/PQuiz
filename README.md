@@ -1,6 +1,6 @@
 # PQuiz
 
-Quickly create online quizzes with PQuiz
+Quickly create online quizzes with PQuiz.
 
 ## Table of Contents
 
@@ -11,36 +11,36 @@ Quickly create online quizzes with PQuiz
 
 ## Features
 
-### For students:
+### For Students
 
-- Login with their class and name
-- Take different quizzes
-- Review the quizzes that have been done
+- **User Authentication**: Login with your class and name.
+- **Quiz Participation**: Take various quizzes.
+- **Quiz Review**: Review completed quizzes.
 
-### For teacher/admin:
+### For Teachers/Admin
 
-- Create quizzes by Json file, edit and verify
-- View the detailed result of every student
-- Download statistics in Excel form
+- **Quiz Management**: Create, edit, and verify quizzes using JSON files.
+- **Performance Tracking**: View detailed results for each student.
+- **Data Analysis**: Download statistics in Excel format.
 
 ## Installation
 
-Step-by-step instructions on how to set up the project locally.
+Follow these step-by-step instructions to set up the project locally:
 
 ```bash
 # Clone the repository
 git clone https://github.com/PelerYuan/PQuiz
 
 # Navigate into the project directory
-cd repo
+cd PQuiz
 
 # Create a virtual environment
 python -m venv venv
 
 # Activate the virtual environment
-# Windows
+# For Windows
 venv\Scripts\activate
-# Linux & Mac
+# For Linux & Mac
 source venv/bin/activate
 
 # Install dependencies
@@ -52,51 +52,44 @@ python app.py
 
 ## Usage
 
-### For students:
+### For Students
 
-Login with their class and name:
+1. **Login**: Use your class and name to log in.
+   ![Student Login Page](doc/1.png)
 
-![student login page](doc/1.png)
+2. **Homepage**: View all available quizzes.
+   ![Student Homepage](doc/2.png)
 
-See all the quizzes in Homepage:
+3. **Take a Quiz**: Select and attempt a quiz.
+   ![Take a Quiz](doc/3.png)
 
-![Student Homepage](doc/2.png)
+4. **Review Quizzes**: Check your quiz results.
+   ![Review a Quiz](doc/4.png)
 
-Take a quiz:
+### For Teachers/Admin
 
-![Take a quiz](doc/3.png)
+1. **Admin Login**: Enter `admin` as the username and provide the password.
+   ![Login as Admin](doc/5.png)
 
-Review a quiz:
+2. **Quiz Management**: Manage all quizzes from the admin dashboard.
+   ![Manage Quizzes](doc/6.png)
 
-![Review a quiz](doc/4.png)
+3. **Edit JSON Files**: Modify quiz content as needed.
+   ![Edit JSON File](doc/7.png)
 
-### For teacher/admin
+4. **View Results**: Access individual student performance data.
+   ![See the Results](doc/8.png)
 
-Login the admin account by simply put `admin` as the name, then input the password `ajajaj`:
-
-![Login as admin](doc/5.png)
-
-Manage all the quizzes here:
-
-![Manage quizzes](doc/6.png)
-
-Edit Json file:
-
-![Edit Json file](doc/7.png)
-
-See the results:
-
-![See the results](doc/8.png)
-
-Download statistics in Excel form:
-
-![Excel statistics](doc/9.png)
+5. **Download Statistics**: Export quiz data in Excel format.
+   ![Excel Statistics](doc/9.png)
 
 ## Configuration
 
-1. Create quizzes using Json with the format in [example](doc/quiz_example.json)
+## Configuration
 
-2. Put quiz configuration files in `data/quizs`, for example:
+1. **Create Quizzes**: Use the provided JSON format. Refer to the [example](doc/quiz_example.json).
+
+2. **Place Quiz Files**: Store quiz configuration files in the `data/quizs` directory, e.g.:
 
 ```
 ./data/quizs/
@@ -104,7 +97,8 @@ Download statistics in Excel form:
 └── quizU2.json
 ```
 
-3. Create folders in `data/students` to represent different classes, for example:
+
+3. **Organize Classes**: Create folders under `data/students` for different classes, e.g.:
 
 ```
 ./data/students/
