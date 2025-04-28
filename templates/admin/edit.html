@@ -45,7 +45,7 @@
             line-height: 1.5;
         }
 
-        .btn-save, .btn-format, .btn-validate, .btn-back, .btn-update {
+        .btn-save, .btn-format, .btn-validate, .btn-back {
             padding: 10px 20px;
             font-size: 16px;
             margin-left: 10px;
@@ -68,7 +68,6 @@
     <div class="header">
         <div>
             <input type="text" id="quizNameInput" value="{{ quiz_name }}" style="padding: 10px; font-size: 16px;">
-            <button id="updateNameButton" class="btn btn-info btn-update">Update Name</button>
         </div>
         <div>
             <button id="validateButton" class="btn btn-warning btn-validate">Validate</button>
@@ -111,7 +110,6 @@
     const saveButton = document.getElementById('saveButton');
     const formatButton = document.getElementById('formatButton');
     const validateButton = document.getElementById('validateButton');
-    const updateNameButton = document.getElementById('updateNameButton');
     const quizNameInput = document.getElementById('quizNameInput');
     const errorAlert = document.getElementById('errorAlert');
     const successAlert = document.getElementById('successAlert');
@@ -199,53 +197,34 @@
         }
     }
 
-    // 更新名称
-    updateNameButton.addEventListener('click', async () => {
-        const newName = quizNameInput.value.trim();
-        if (newName) {
-            try {
-                // 发送 POST 请求到服务器以更新名称
-                const response = await fetch('/update_quiz_name/{{ quiz_name }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({newName}),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.statusText}`);
-                }
-
-                // 显示成功提示
-                successAlert.textContent = 'Quiz name updated successfully!';
-                successAlert.style.display = 'block';
-                errorAlert.style.display = 'none';
-            } catch (error) {
-                // 显示错误提示
-                errorAlert.textContent = `Error: ${error.message}`;
-                errorAlert.style.display = 'block';
-                successAlert.style.display = 'none';
-            }
-        }
-    });
-
-
-    // 检测按钮点击事件
-    validateButton.addEventListener('click', validateJSON);
-
-    // 格式化按钮点击事件
-    formatButton.addEventListener('click', formatJSON);
-
     // 保存按钮点击事件
     saveButton.addEventListener('click', async () => {
         try {
+            // 获取新名称
+            const newName = quizNameInput.value.trim();
+            if (!newName || newName === 'Quiz Name Here') {
+                throw new Error('Quiz name cannot be empty');
+            }
+
             // 获取编辑器内容
             const jsonData = editor.getValue();
             checkJSONSyntax(jsonData); // 检查 JSON 语法
 
-            // 发送 POST 请求到服务器
-            const response = await fetch('/save/{{ quiz_name }}', {
+            // 更新名称
+            const updateResponse = await fetch('/update_quiz_name/{{ quiz_name }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({newName}),
+            });
+
+            if (!updateResponse.ok) {
+                throw new Error(`Failed to update quiz name: ${updateResponse.statusText}`);
+            }
+
+            // 保存 JSON 数据
+            const saveResponse = await fetch('/save/' + newName, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -253,13 +232,12 @@
                 body: jsonData,
             });
 
-            // 检查服务器响应
-            if (!response.ok) {
-                throw new Error(`Server error: ${response.statusText}`);
+            if (!saveResponse.ok) {
+                throw new Error(`Failed to save JSON: ${saveResponse.statusText}`);
             }
 
             // 显示成功提示
-            successAlert.textContent = 'JSON saved successfully!';
+            successAlert.textContent = 'Quiz name and JSON saved successfully!';
             successAlert.style.display = 'block';
             errorAlert.style.display = 'none';
             clearErrorMarks(); // 清除错误标记
@@ -271,6 +249,12 @@
             highlightErrorLine(error); // 高亮错误行
         }
     });
+
+    // 检测按钮点击事件
+    validateButton.addEventListener('click', validateJSON);
+
+    // 格式化按钮点击事件
+    formatButton.addEventListener('click', formatJSON);
 </script>
 </body>
 </html>

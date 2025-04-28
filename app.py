@@ -227,8 +227,11 @@ def delete(quiz_name):
 @app.route('/edit/<quiz_name>')
 def edit(quiz_name):
     if session.get('name') == 'admin':
-        with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
-            return render_template('admin/edit.html', quiz_name=quiz_name, content=f.read())
+        if os.path.exists(f'data/quizs/{quiz_name}.json'):
+            with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+                return render_template('admin/edit.html', quiz_name=quiz_name, content=f.read())
+        else:
+            return render_template('admin/edit.html', quiz_name=quiz_name, content="")
     return redirect(url_for('admin_login'))
 
 
