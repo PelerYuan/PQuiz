@@ -175,7 +175,8 @@ def admin():
             with open(f'data/quizs/{quiz_name}', 'r', encoding='utf-8') as f:
                 quiz = json.loads(f.read())
                 tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
-        return render_template('admin/admin.html', tests=tests)
+        is_super = session['school'] == 'High School Affiliated to Nanjing Normal University'
+        return render_template('admin/admin.html', tests=tests, is_super=is_super)
     return redirect(url_for('admin_login'))
 
 
