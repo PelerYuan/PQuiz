@@ -45,7 +45,7 @@
             line-height: 1.5;
         }
 
-        .btn-save, .btn-format, .btn-validate, .btn-back{
+        .btn-save, .btn-format, .btn-validate, .btn-back, .btn-update {
             padding: 10px 20px;
             font-size: 16px;
             margin-left: 10px;
@@ -66,7 +66,10 @@
 <div class="container">
     <!-- 标题和按钮在同一栏 -->
     <div class="header">
-        <h1>Edit `{{ quiz_name }}`</h1>
+        <div>
+            <input type="text" id="quizNameInput" value="{{ quiz_name }}" style="padding: 10px; font-size: 16px;">
+            <button id="updateNameButton" class="btn btn-info btn-update">Update Name</button>
+        </div>
         <div>
             <button id="validateButton" class="btn btn-warning btn-validate">Validate</button>
             <button id="formatButton" class="btn btn-secondary btn-format">Format</button>
@@ -101,13 +104,15 @@
         lineWrapping: true, // 自动换行
         matchBrackets: true, // 匹配括号
         autoCloseBrackets: true, // 自动关闭括号
-        extraKeys: { "Ctrl-Space": "autocomplete" }, // 代码补全
+        extraKeys: {"Ctrl-Space": "autocomplete"}, // 代码补全
     });
 
     // 获取元素
     const saveButton = document.getElementById('saveButton');
     const formatButton = document.getElementById('formatButton');
     const validateButton = document.getElementById('validateButton');
+    const updateNameButton = document.getElementById('updateNameButton');
+    const quizNameInput = document.getElementById('quizNameInput');
     const errorAlert = document.getElementById('errorAlert');
     const successAlert = document.getElementById('successAlert');
 
@@ -125,8 +130,8 @@
             if (match) {
                 const errorPosition = parseInt(match[1], 10); // 错误字符位置
                 const errorLine = editor.posFromIndex(errorPosition).line; // 错误行号
-                const errorStart = { line: errorLine, ch: 0 }; // 行首
-                const errorEnd = { line: errorLine, ch: editor.getLine(errorLine).length }; // 行尾
+                const errorStart = {line: errorLine, ch: 0}; // 行首
+                const errorEnd = {line: errorLine, ch: editor.getLine(errorLine).length}; // 行尾
 
                 // 标记错误行
                 editor.markText(errorStart, errorEnd, {
@@ -193,6 +198,38 @@
             highlightErrorLine(error); // 高亮错误行
         }
     }
+
+    // 更新名称
+    updateNameButton.addEventListener('click', async () => {
+        const newName = quizNameInput.value.trim();
+        if (newName) {
+            try {
+                // 发送 POST 请求到服务器以更新名称
+                const response = await fetch('/update_quiz_name/{{ quiz_name }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({newName}),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+
+                // 显示成功提示
+                successAlert.textContent = 'Quiz name updated successfully!';
+                successAlert.style.display = 'block';
+                errorAlert.style.display = 'none';
+            } catch (error) {
+                // 显示错误提示
+                errorAlert.textContent = `Error: ${error.message}`;
+                errorAlert.style.display = 'block';
+                successAlert.style.display = 'none';
+            }
+        }
+    });
+
 
     // 检测按钮点击事件
     validateButton.addEventListener('click', validateJSON);
