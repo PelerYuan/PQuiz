@@ -44,6 +44,9 @@ vim configure.json
     "Test school": "password here"
   }
 }
+
+# using docker-compose to build up
+docker-compose up
 ```
 
 ## Usage
