@@ -15,7 +15,8 @@ def index():
         for quiz_name in os.listdir('data/quizs'):
             with open(f'data/quizs/{quiz_name}', 'r', encoding='utf-8') as f:
                 quiz = json.loads(f.read())
-                tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
+                if quiz.get('close', '') != 'true':
+                    tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
         return render_template('index.html', class_=session['class'], name=session['name'], tests=tests)
 
     return redirect(url_for('login'))
@@ -42,7 +43,6 @@ def login():
             return redirect(url_for('admin_login'))
 
     classes = os.listdir('data/students/')
-    classes.remove('admin')
     return render_template('login.html', classes=classes)
 
 @app.route('/logout')
@@ -175,6 +175,36 @@ def admin():
     return redirect(url_for('login'))
 
 
+@app.route('/close/<quiz_name>')
+def close(quiz_name):
+    if session.get('name') == 'admin':
+        with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data['close'] = 'true'
+        with open(f'data/quizs/{quiz_name}.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+        return redirect(url_for('admin'))
+    return redirect(url_for('login'))
+
+@app.route('/open/<quiz_name>')
+def open_(quiz_name):
+    if session.get('name') == 'admin':
+        with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+            data = json.loads(f.read())
+            data['close'] = 'false'
+        with open(f'data/quizs/{quiz_name}.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+        return redirect(url_for('admin'))
+    return redirect(url_for('login'))
+
+
+def is_closed(quiz_name):
+    with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
+        data = json.loads(f.read())
+        return data.get('close', '') == 'true'
+app.jinja_env.globals['is_closed'] = is_closed
+
+
 @app.route('/delete/<quiz_name>')
 def delete(quiz_name):
     if session.get('name') == 'admin':
@@ -226,7 +256,6 @@ def trial(quiz_name):
 def result(quiz_name):
     if session.get('name') == 'admin':
         classes = os.listdir('data/students/')
-        classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name="None", classes=classes,
                                students="None")
     return redirect(url_for('login'))
@@ -243,7 +272,6 @@ def result_class(quiz_name, class_name):
                     data = json.loads(f.read())
                     students[student] = f"{data['score']} / {data['total_score']}"
         classes = os.listdir('data/students/')
-        classes.remove('admin')
         return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
                                students=students)
     return redirect(url_for('login'))

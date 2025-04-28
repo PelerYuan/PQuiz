@@ -98,6 +98,11 @@
             color: white;
         }
 
+        .btn-close {
+            background-color: #6c757d; /* 灰色背景 */
+            color: white; /* 白色文字 */
+        }
+
         .btn-delete {
             background-color: #dc3545;
             color: white;
@@ -136,10 +141,22 @@
                         <p class="exam-subtitle">{{ test['subtitle'] }}</p>
                     </div>
                     <div class="exam-actions">
-                        <a class="btn btn-custom btn-edit" href="{{ url_for('result', quiz_name=test['name']) }}">Result</a>
-                        <a class="btn btn-custom btn-trial" href="{{ url_for('trial', quiz_name=test['name']) }}">Trial</a>
-                        <a class="btn btn-custom btn-source" href="{{ url_for('edit', quiz_name=test['name']) }}">Source Code</a>
-                        <button class="btn btn-custom btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-quiz-name="{{ test['name'] }}">Delete</button>
+                        <a class="btn btn-custom btn-edit"
+                           href="{{ url_for('result', quiz_name=test['name']) }}">Result</a>
+                        <a class="btn btn-custom btn-trial"
+                           href="{{ url_for('trial', quiz_name=test['name']) }}">Trial</a>
+                        <a class="btn btn-custom btn-source" href="{{ url_for('edit', quiz_name=test['name']) }}">Source
+                            Code</a>
+                        {% if is_closed(test['name']) %}
+                            <a class="btn btn-custom btn-secondary"
+                               href="{{ url_for('open_', quiz_name=test['name']) }}">Open</a>
+                        {% else %}
+                            <a class="btn btn-custom btn-secondary"
+                               href="{{ url_for('close', quiz_name=test['name']) }}">Close</a>
+                        {% endif %}
+                        <button class="btn btn-custom btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-quiz-name="{{ test['name'] }}">Delete
+                        </button>
                     </div>
                 </li>
             {% endfor %}
