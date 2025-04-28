@@ -8,6 +8,13 @@ app.secret_key = os.urandom(24)
 app.debug = True
 
 
+# Read configure
+with open('configure.json', 'r') as f:
+    config = json.load(f)
+    port = int(config.get('port', 5000))
+    for school in os.listdir("data/students"):
+        if config['admin password'].get(school, None) is None:
+            raise Exception(f"{school} admin password is missing, please set it in configure.json")
 @app.route('/')
 def index():
     if session.get('name', 'admin') != 'admin':
@@ -365,4 +372,4 @@ def admin_login():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=port)
