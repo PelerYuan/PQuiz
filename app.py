@@ -132,9 +132,9 @@ def submit(quiz_name):
                       encoding='utf-8') as f:
                 json.dump(selection, f, ensure_ascii=False, indent=4)
 
-            return render_template('finish.html')
+            return render_template('finish.html', score=f"{total_score} / {score * question_count}")
         else:
-            return render_template('finish.html')
+            return redirect(url_for('index'))
     return redirect(url_for('login'))
 
 
