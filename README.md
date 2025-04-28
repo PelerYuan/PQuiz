@@ -68,7 +68,7 @@ python app.py
 
 ### For Teachers/Admin
 
-1. **Admin Login**: Enter `admin` as the username and provide the password.
+1. **Admin Login**: visit `website/admin`
    ![Login as Admin](doc/5.png)
 
 2. **Quiz Management**: Manage all quizzes from the admin dashboard.

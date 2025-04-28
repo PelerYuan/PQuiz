@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=“en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,21 +18,34 @@
                         scores!</p>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url_for('login') }}">
+                    <form method="POST" action="{{ url_for('login') }}" onsubmit="return validateForm()">
+                        <!-- 学校选择 -->
                         <div class="mb-3">
-                            <label for="classSelect" class="form-label">Class</label>
-                            <select class="form-select" id="classSelect" name="class" required>
-                                <option value="not select" selected>Please select your class</option>
-                                {% for class in classes %}
-                                    <option value="{{ class }}">{{ class }}</option>
+                            <label for="schoolSelect" class="form-label">School</label>
+                            <select class="form-select" id="schoolSelect" name="school" required>
+                                <option value="not select" selected>Please select your School</option>
+                                {% for school in school_class.keys() %}
+                                    <option value="{{ school }}">{{ school }}</option>
                                 {% endfor %}
                             </select>
                         </div>
+
+                        <!-- 班级选择 -->
+                        <div class="mb-3">
+                            <label for="classSelect" class="form-label">Class</label>
+                            <select class="form-select" id="classSelect" name="class" required disabled>
+                                <option value="not select" selected>Please select your class</option>
+                            </select>
+                        </div>
+
+                        <!-- 姓名输入 -->
                         <div class="mb-3">
                             <label for="nameInput" class="form-label">Name</label>
                             <input type="text" class="form-control" id="nameInput" name="name"
                                    placeholder="Please enter your name" required>
                         </div>
+
+                        <!-- 提交按钮 -->
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                 </div>
@@ -43,5 +56,70 @@
 <!-- Bootstrap JS and dependencies -->
 <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script>
+    // 获取学校和班级的下拉菜单
+    const schoolSelect = document.getElementById('schoolSelect');
+    const classSelect = document.getElementById('classSelect');
+
+    // 定义学校与班级的映射
+    const schoolClassMap = {
+        {% for school, classes in school_class.items() %}
+            "{{ school }}": [{% for class in classes %}"{{ class }}"{% if not loop.last %},{% endif %}{% endfor %}],
+        {% endfor %}
+    };
+
+    // 监听学校选择的变化
+    schoolSelect.addEventListener('change', function () {
+        const selectedSchool = schoolSelect.value;
+
+        // 清空班级下拉菜单
+        classSelect.innerHTML = '<option value="not select" selected>Please select your class</option>';
+
+        // 如果选择了学校，动态添加班级选项
+        if (selectedSchool !== "not select") {
+            const classes = schoolClassMap[selectedSchool];
+            classes.forEach(function (className) {
+                const option = document.createElement('option');
+                option.value = className;
+                option.textContent = className;
+                classSelect.appendChild(option);
+            });
+
+            // 启用班级下拉菜单
+            classSelect.disabled = false;
+        } else {
+            // 如果未选择学校，禁用班级下拉菜单
+            classSelect.disabled = true;
+        }
+    });
+
+    // 表单验证函数
+    function validateForm() {
+        const school = schoolSelect.value;
+        const className = classSelect.value;
+        const name = document.getElementById('nameInput').value;
+
+        // 检查学校是否已选择
+        if (school === "not select") {
+            alert("Please select your school.");
+            return false;
+        }
+
+        // 检查班级是否已选择
+        if (className === "not select") {
+            alert("Please select your class.");
+            return false;
+        }
+
+        // 检查姓名是否已填写
+        if (name.trim() === "") {
+            alert("Please enter your name.");
+            return false;
+        }
+
+        // 如果所有字段都有效，允许提交
+        return true;
+    }
+</script>
 </body>
 </html>

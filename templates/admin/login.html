@@ -19,6 +19,15 @@
                 <div class="card-body">
                     <form method="POST" action="{{ url_for('admin_login') }}">
                         <div class="mb-3">
+                            <label for="schoolSelect" class="form-label">School</label>
+                            <select class="form-select" id="schoolSelect" name="school" required>
+                                <option value="not select" selected>Please select your School</option>
+                                {% for school in schools %}
+                                    <option value="{{ school }}">{{ school }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="nameInput" class="form-label">Password</label>
                             <input type="password" class="form-control" id="nameInput" name="password"
                                    placeholder="Please enter the admin password" required>

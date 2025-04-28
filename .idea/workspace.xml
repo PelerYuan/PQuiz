@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="delete test">
+    <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="close quiz support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/quizs/quizU1.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/quizs/quizU1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/students/Commerce/quizU1_a.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/students/High School Affiliated to Nanjing Normal University/Commerce/quizU1_a.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/students/Design/quizU1_a.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/students/High School Affiliated to Nanjing Normal University/Design/quizU1_a.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,39 +62,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Flask server.Flask (app.py).executor&quot;: &quot;Run&quot;,
-    &quot;Flask server.PQuiz.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.json.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Programming/PycharmProjects/PQuiz/doc&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Flask server.Flask (app.py).executor": "Run",
+    "Flask server.PQuiz.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.json.executor": "Run",
+    "Python.test (1).executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Programming/PycharmProjects/PQuiz/data/quizs",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programming\PycharmProjects\PQuiz\data\quizs" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\doc" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\data\students\Commerce" />
-      <recent name="D:\Programming\PycharmProjects\PQuiz\data\quizs" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\img" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programming\PycharmProjects\PQuiz\data\students\High School Affiliated to Nanjing Normal University" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\data\quiz" />
     </key>
   </component>
@@ -189,7 +193,7 @@
       <workItem from="1745716569748" duration="1406000" />
       <workItem from="1745719242247" duration="5325000" />
       <workItem from="1745733313482" duration="6683000" />
-      <workItem from="1745805824820" duration="2240000" />
+      <workItem from="1745805824820" duration="4399000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -391,7 +395,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745805959511</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="close quiz support">
+      <option name="closed" value="true" />
+      <created>1745808387693</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1745808387693</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -429,11 +441,12 @@
     <MESSAGE value="debug mode on" />
     <MESSAGE value="fix admin bug" />
     <MESSAGE value="delete test" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete test" />
+    <MESSAGE value="close quiz support" />
+    <option name="LAST_COMMIT_MESSAGE" value="close quiz support" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PQuiz$json.coverage" NAME="test Coverage Results" MODIFIED="1745558494735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745807872586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PQuiz$PQuiz.coverage" NAME="PQuiz Coverage Results" MODIFIED="1745810237342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$test.coverage" NAME="test Coverage Results" MODIFIED="1745661629305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1745676457566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PQuiz$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1745551905219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

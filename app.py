@@ -23,7 +23,7 @@ def index():
 
 
 def is_tested(quiz_name):
-    return os.path.exists(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json")
+    return os.path.exists(f"data/students/{session['school']}/{session['class']}/{quiz_name}_{session['name']}.json")
 
 
 app.jinja_env.globals['is_tested'] = is_tested
@@ -34,16 +34,20 @@ def login():
     if request.method == 'POST':
         class_ = request.form['class']
         name = request.form['name']
+        school = request.form['school']
         if name != 'admin':
             if class_ != 'not select':
                 session['class'] = class_
                 session['name'] = name
+                session['school'] = school
                 return redirect(url_for('index'))
         else:
             return redirect(url_for('admin_login'))
 
-    classes = os.listdir('data/students/')
-    return render_template('login.html', classes=classes)
+    school_class = {}
+    for school in os.listdir('data/students'):
+        school_class[school] = os.listdir(f'data/students/{school}')
+    return render_template('login.html', school_class=school_class)
 
 @app.route('/logout')
 def logout():
@@ -123,7 +127,7 @@ def submit(quiz_name):
                 selection['score'] = str(total_score)
                 selection['total_score'] = str(score * question_count)  # Ignore itext
 
-            with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
+            with open(f"data/students/{session['school']}/{session['class']}/{quiz_name}_{session['name']}.json", 'w', encoding='utf-8') as f:
                 json.dump(selection, f, ensure_ascii=False, indent=4)
 
             return render_template('finish.html')
@@ -139,7 +143,7 @@ def review(quiz_name):
             quiz = json.loads(f.read())
             for i in range(len(quiz['questions'])):
                 quiz['questions'][i]['index'] = str(i + 1)
-        with open(f"data/students/{session['class']}/{quiz_name}_{session['name']}.json", 'r', encoding='utf-8') as f:
+        with open(f"data/students/{session['school']}/{session['class']}/{quiz_name}_{session['name']}.json", 'r', encoding='utf-8') as f:
             answer = json.loads(f.read())
         return render_template('review.html', quiz=quiz, answer=answer)
     return redirect(url_for('login'))
@@ -172,7 +176,7 @@ def admin():
                 quiz = json.loads(f.read())
                 tests.append({'name': quiz_name[:-5], 'title': quiz['title'], 'subtitle': quiz['subtitle']})
         return render_template('admin/admin.html', tests=tests)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/close/<quiz_name>')
@@ -184,7 +188,7 @@ def close(quiz_name):
         with open(f'data/quizs/{quiz_name}.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
         return redirect(url_for('admin'))
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 @app.route('/open/<quiz_name>')
 def open_(quiz_name):
@@ -195,7 +199,7 @@ def open_(quiz_name):
         with open(f'data/quizs/{quiz_name}.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
         return redirect(url_for('admin'))
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 def is_closed(quiz_name):
@@ -210,7 +214,7 @@ def delete(quiz_name):
     if session.get('name') == 'admin':
         os.remove(f'data/quizs/{quiz_name}.json')
         return redirect(url_for('admin'))
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/edit/<quiz_name>')
@@ -218,7 +222,7 @@ def edit(quiz_name):
     if session.get('name') == 'admin':
         with open(f'data/quizs/{quiz_name}.json', 'r', encoding='utf-8') as f:
             return render_template('admin/edit.html', quiz_name=quiz_name, content=f.read())
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 # 保存 JSON 数据的接口
@@ -238,7 +242,7 @@ def save(quiz_name):
         except Exception as e:
             # 返回错误响应
             return jsonify({"error": str(e)}), 400
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/trial/<quiz_name>')
@@ -249,32 +253,32 @@ def trial(quiz_name):
             for i in range(len(quiz['questions'])):
                 quiz['questions'][i]['index'] = (i + 1)
         return render_template('admin/trial.html', quiz=quiz, quiz_name=quiz_name)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/result/<quiz_name>')
 def result(quiz_name):
     if session.get('name') == 'admin':
-        classes = os.listdir('data/students/')
+        classes = os.listdir(f"data/students/{session['school']}")
         return render_template('admin/result.html', quiz_name=quiz_name, class_name="None", classes=classes,
                                students="None")
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/result/<quiz_name>/<class_name>')
 def result_class(quiz_name, class_name):
     if session.get('name') == 'admin':
         students = {}
-        for filename in os.listdir(f"data/students/{class_name}"):
+        for filename in os.listdir(f"data/students/{session['school']}/{class_name}"):
             quiz, student = filename[:-5].split('_')
             if quiz_name == quiz:
-                with open(f"data/students/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
+                with open(f"data/students/{session['school']}/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
                     data = json.loads(f.read())
                     students[student] = f"{data['score']} / {data['total_score']}"
-        classes = os.listdir('data/students/')
+        classes = os.listdir(f"data/students/{session['school']}")
         return render_template('admin/result.html', quiz_name=quiz_name, class_name=class_name, classes=classes,
                                students=students)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/review/<quiz_name>/<class_name>/<student_name>')
@@ -284,10 +288,10 @@ def review_admin(quiz_name, class_name, student_name):
             quiz = json.loads(f.read())
             for i in range(len(quiz['questions'])):
                 quiz['questions'][i]['index'] = str(i + 1)
-        with open(f"data/students/{class_name}/{quiz_name}_{student_name}.json", 'r', encoding='utf-8') as f:
+        with open(f"data/students/{session['school']}/{class_name}/{quiz_name}_{student_name}.json", 'r', encoding='utf-8') as f:
             answer = json.loads(f.read())
         return render_template('review.html', quiz=quiz, answer=answer)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 
 @app.route('/excel/<quiz_name>/<class_name>')
@@ -299,10 +303,10 @@ def excel(quiz_name, class_name):
             "total_score": [],
             "percentage": []
         }
-        for filename in os.listdir(f"data/students/{class_name}"):
+        for filename in os.listdir(f"data/students/{session['school']}/{class_name}"):
             quiz, student = filename[:-5].split('_')
             if quiz_name == quiz:
-                with open(f"data/students/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
+                with open(f"data/students/{session['school']}/{class_name}/{quiz_name}_{student}.json", 'r', encoding='utf-8') as f:
                     data = json.loads(f.read())
                     output['student_name'].append(student)
                     output['score'].append(float(data['score']))
@@ -313,17 +317,21 @@ def excel(quiz_name, class_name):
         # 将DataFrame写入Excel文件
         df.to_excel(f'tmp/{quiz_name}_{class_name}.xlsx', index=False)
         return send_file(f'tmp/{quiz_name}_{class_name}.xlsx', as_attachment=True)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin_login'))
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
+        school = request.form['school']
         password = request.form['password']
-        if password == 'ajajaj':        #AJAJAJ!!!
-            session['class'] = 'admin'
-            session['name'] = 'admin'
-            return redirect(url_for('admin'))
-    return render_template('admin/login.html')
+        if school != 'not select':
+            if password == 'ajajaj':        #AJAJAJ!!!
+                session['class'] = 'admin'
+                session['name'] = 'admin'
+                session['school'] = school
+                return redirect(url_for('admin'))
+    schools = os.listdir(f"data/students/")
+    return render_template('admin/login.html', schools=schools)
 
 if __name__ == '__main__':
     app.run()
