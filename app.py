@@ -11,7 +11,6 @@ app.debug = True
 # Read configure
 with open('configure.json', 'r') as f:
     config = json.load(f)
-    port = int(config.get('port', 5000))
     for school in os.listdir("data/students"):
         if config['admin password'].get(school, None) is None:
             raise Exception(f"{school} admin password is missing, please set it in configure.json")
@@ -362,7 +361,7 @@ def admin_login():
         school = request.form['school']
         password = request.form['password']
         if school != 'not select':
-            if password == 'ajajaj':  # AJAJAJ!!!
+            if password == config['admin password'][school]:
                 session['class'] = 'admin'
                 session['name'] = 'admin'
                 session['school'] = school
@@ -372,4 +371,4 @@ def admin_login():
 
 
 if __name__ == '__main__':
-    app.run(port=port)
+    app.run()

@@ -34,20 +34,16 @@ git clone https://github.com/PelerYuan/PQuiz
 # Navigate into the project directory
 cd PQuiz
 
-# Create a virtual environment
-python -m venv venv
+# Create a configure file
+vim configure.json
 
-# Activate the virtual environment
-# For Windows
-venv\Scripts\activate
-# For Linux & Mac
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the web server
-python app.py
+# The configure file should be like this:
+{
+  "admin password": {
+    "High School Affiliated to Nanjing Normal University": "password here",
+    "Test school": "password here"
+  }
+}
 ```
 
 ## Usage
