@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac3455e9-94f9-4f24-8bc2-d94e70ac8eb2" name="Changes" comment="update readme">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "DefaultHtmlFileTemplate": "HTML File",
     "Docker.docker-compose.yml.web: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
@@ -71,7 +73,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Programming/PycharmProjects/PQuiz/data/quizs",
+    "last_opened_file_path": "D:/Programming/PycharmProjects/PQuiz",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -84,11 +86,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programming\PycharmProjects\PQuiz" />
+      <recent name="D:\Programming\PycharmProjects\PQuiz\data" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\data\quizs" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\doc" />
       <recent name="D:\Programming\PycharmProjects\PQuiz\data\students\Commerce" />
-      <recent name="D:\Programming\PycharmProjects\PQuiz\img" />
-      <recent name="D:\Programming\PycharmProjects\PQuiz\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Programming\PycharmProjects\PQuiz\data\students\High School Affiliated to Nanjing Normal University" />
@@ -162,7 +164,9 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <list>
