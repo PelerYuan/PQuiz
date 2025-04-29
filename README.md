@@ -34,11 +34,7 @@ git clone https://github.com/PelerYuan/PQuiz
 # Navigate into the project directory
 cd PQuiz
 
-# Create working folders
-
-mkdir data tmp
-
-# Create a configure filetmp
+# Create a configure file tmp
 vim configure.json
 
 # The configure file should be like this:
